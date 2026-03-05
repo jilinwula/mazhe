@@ -1,0 +1,57 @@
+{{ define "main" }}
+{{ if .Sections }}
+{{/* Top-level /series/ page — shows all series */}}
+<div class="container">
+  <div class="page-header">
+    <h1 class="page-title">技术系列</h1>
+    <p class="page-desc">系统化的技术学习路径，从入门到实战</p>
+  </div>
+  <div class="series-grid series-grid-full">
+    {{ range sort .Sections "Params.weight" "asc" }}
+      {{ $pages := sort .Pages "Weight" "asc" }}
+      {{ $firstURL := .Permalink }}
+      {{ if gt (len $pages) 0 }}
+        {{ $firstURL = (index $pages 0).Permalink }}
+      {{ end }}
+      {{ $color := .Params.color | default "#3b82f6" }}
+      <a href="{{ $firstURL }}" class="series-card">
+        <div class="series-card-stripe" style="background: {{ $color }}"></div>
+        <div class="series-card-inner">
+          <div class="series-card-top">
+            <span class="series-icon">{{ .Params.icon | default "📚" }}</span>
+            <span class="series-count">{{ len .Pages }} 篇</span>
+          </div>
+          <h3 class="series-card-title">{{ .Title }}</h3>
+          <p class="series-card-desc">{{ .Params.description | default .Description | default "暂无描述" }}</p>
+          <div class="series-card-meta">
+            {{ with .Lastmod }}
+            <span class="series-updated">更新于 {{ dateFormat "2006-01-02" . }}</span>
+            {{ end }}
+          </div>
+        </div>
+      </a>
+    {{ end }}
+  </div>
+</div>
+
+{{ else }}
+{{/* Subsection /series/maven/ page — redirect to first article */}}
+{{ $pages := sort .Pages "Weight" "asc" }}
+{{ if gt (len $pages) 0 }}
+  {{ $first := index $pages 0 }}
+  <script>window.location.replace("{{ $first.Permalink }}");</script>
+  <noscript><meta http-equiv="refresh" content="0;url={{ $first.Permalink }}"></noscript>
+  <div class="container">
+    <p>正在跳转到 <a href="{{ $first.Permalink }}">{{ $first.Title }}</a>…</p>
+  </div>
+{{ else }}
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">{{ .Title }}</h1>
+      <p class="page-desc">{{ .Description }}</p>
+    </div>
+    <p class="empty-hint">该系列暂无文章</p>
+  </div>
+{{ end }}
+{{ end }}
+{{ end }}

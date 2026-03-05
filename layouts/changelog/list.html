@@ -1,0 +1,26 @@
+{{ define "main" }}
+<div class="container">
+  <div class="page-header">
+    <h1 class="page-title">更新日志</h1>
+    <p class="page-desc">记录每一次迭代与改进</p>
+  </div>
+  <div class="changelog-timeline">
+    {{ range sort .Pages "Date" "desc" }}
+    <div class="changelog-item">
+      <div class="changelog-dot"></div>
+      <div class="changelog-content">
+        <div class="changelog-meta">
+          <time datetime="{{ dateFormat "2006-01-02" .Date }}">{{ dateFormat "2006-01-02" .Date }}</time>
+        </div>
+        <a href="{{ .Permalink }}" class="changelog-title">{{ .Title }}</a>
+        {{ with .Description }}
+        <p class="changelog-desc">{{ . }}</p>
+        {{ else }}
+        <p class="changelog-desc">{{ .Summary | truncate 100 }}</p>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,22 @@
+{{ $currentPage := . }}
+{{ $section := .CurrentSection }}
+<nav class="series-sidebar" id="series-sidebar">
+  <div class="sidebar-header">
+    <a href="{{ $section.Permalink }}" class="sidebar-series-title">{{ $section.Title }}</a>
+    <button class="sidebar-close" id="sidebar-close" aria-label="关闭侧边栏">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <ul class="sidebar-nav">
+    {{ range (sort $section.Pages "Weight" "asc") }}
+    <li class="sidebar-item{{ if eq .Permalink $currentPage.Permalink }} active{{ end }}">
+      <a href="{{ .Permalink }}" class="sidebar-link">
+        <span class="sidebar-link-text">{{ .Title }}</span>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</nav>

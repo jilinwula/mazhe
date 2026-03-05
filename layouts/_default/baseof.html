@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "zh-CN" }}" data-theme="dark">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  {{ partial "header.html" . }}
+  <div class="page-wrapper">
+    {{ block "main" . }}{{ end }}
+  </div>
+  {{ partial "footer.html" . }}
+  {{ $js := resources.Get "js/main.js" }}
+  {{ if $js }}<script src="{{ $js.RelPermalink }}" defer></script>{{ end }}
+  {{ block "scripts" . }}{{ end }}
+</body>
+</html>

@@ -1,0 +1,68 @@
+{{ define "main" }}
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="hero-title">码者</h1>
+    <p class="hero-tagline">开发者的效率工具，让你专注于真正重要的事情。</p>
+    <div class="hero-cta">
+      <a href="/series/" class="btn-primary">浏览系列</a>
+      <a href="/posts/" class="btn-ghost">查看博客</a>
+    </div>
+  </div>
+</section>
+
+<section class="home-section">
+  <div class="section-header">
+    <h2 class="section-title">技术系列</h2>
+    <a href="/series/" class="section-more">查看全部 →</a>
+  </div>
+  <div class="series-grid">
+    {{ $seriesSection := .Site.GetPage "/series" }}
+    {{ if $seriesSection }}
+      {{ range sort $seriesSection.Sections "Params.weight" "asc" }}
+        {{ $pages := sort .Pages "Weight" "asc" }}
+        {{ $firstURL := .Permalink }}
+        {{ if gt (len $pages) 0 }}
+          {{ $firstURL = (index $pages 0).Permalink }}
+        {{ end }}
+        {{ $color := .Params.color | default "#3b82f6" }}
+        <a href="{{ $firstURL }}" class="series-card">
+          <div class="series-card-stripe" style="background: {{ $color }}"></div>
+          <div class="series-card-inner">
+            <div class="series-card-top">
+              <span class="series-icon">{{ .Params.icon | default "📚" }}</span>
+              <span class="series-count">{{ len .Pages }} 篇</span>
+            </div>
+            <h3 class="series-card-title">{{ .Title }}</h3>
+            <p class="series-card-desc">{{ .Params.description | default .Description | default "暂无描述" }}</p>
+            <div class="series-card-meta">
+              {{ with .Lastmod }}
+              <span class="series-updated">更新于 {{ dateFormat "2006-01-02" . }}</span>
+              {{ end }}
+            </div>
+          </div>
+        </a>
+      {{ end }}
+    {{ else }}
+      <p class="empty-hint">暂无系列，<a href="/series/">点击创建</a></p>
+    {{ end }}
+  </div>
+</section>
+
+{{ $posts := where .Site.RegularPages "Section" "posts" }}
+{{ if gt (len $posts) 0 }}
+<section class="home-section">
+  <div class="section-header">
+    <h2 class="section-title">最新博客</h2>
+    <a href="/posts/" class="section-more">查看全部 →</a>
+  </div>
+  <div class="post-list">
+    {{ range first 5 (sort $posts "Date" "desc") }}
+    <a href="{{ .Permalink }}" class="post-item">
+      <span class="post-title">{{ .Title }}</span>
+      <span class="post-date">{{ dateFormat "2006-01-02" .Date }}</span>
+    </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+{{ end }}

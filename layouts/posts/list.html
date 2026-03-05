@@ -1,0 +1,40 @@
+{{ define "main" }}
+<div class="container">
+  <div class="page-header">
+    <h1 class="page-title">博客</h1>
+    <p class="page-desc">开发心得与实战经验</p>
+  </div>
+
+  {{/* Tag filter */}}
+  {{ $tags := .Site.Taxonomies.tags }}
+  {{ if $tags }}
+  <div class="tag-filter">
+    <a href="/posts/" class="tag-btn{{ if not .Params.tag }} active{{ end }}">全部</a>
+    {{ range $name, $pages := $tags }}
+    <a href="/tags/{{ $name | urlize }}/" class="tag-btn">{{ $name }}</a>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  <div class="post-cards">
+    {{ range sort .Pages "Date" "desc" }}
+    <a href="{{ .Permalink }}" class="post-card">
+      <div class="post-card-inner">
+        <div class="post-card-meta">
+          <time datetime="{{ dateFormat "2006-01-02" .Date }}">{{ dateFormat "2006-01-02" .Date }}</time>
+          {{ range .Params.tags }}
+          <span class="post-tag">{{ . }}</span>
+          {{ end }}
+        </div>
+        <h2 class="post-card-title">{{ .Title }}</h2>
+        {{ with .Description }}
+        <p class="post-card-desc">{{ . }}</p>
+        {{ else }}
+        <p class="post-card-desc">{{ .Summary | truncate 120 }}</p>
+        {{ end }}
+      </div>
+    </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

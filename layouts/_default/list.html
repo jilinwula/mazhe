@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="container">
+  <div class="page-header">
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="page-desc">{{ . }}</p>{{ end }}
+  </div>
+  <div class="post-cards">
+    {{ range sort .Pages "Date" "desc" }}
+    <a href="{{ .Permalink }}" class="post-card">
+      <div class="post-card-inner">
+        <div class="post-card-meta">
+          <time datetime="{{ dateFormat "2006-01-02" .Date }}">{{ dateFormat "2006-01-02" .Date }}</time>
+        </div>
+        <h2 class="post-card-title">{{ .Title }}</h2>
+        <p class="post-card-desc">{{ .Summary | truncate 120 }}</p>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

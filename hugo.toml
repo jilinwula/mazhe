@@ -1,29 +1,41 @@
 baseURL = "https://mazhe.pub/"
 languageCode = "zh-CN"
 title = "码者"
-theme = "hugo-book"
 enableRobotsTXT = true
 buildDrafts = false
 
 [params]
-  BookTheme = "light"
-  BookToC = true
-  BookSearch = true
-  BookMenuBundle = false
-  BookSection = "docs"
-  BookDateFormat = "2006-01-02"
-  BookDescription = "开发者的效率工具"
+  description = "开发者的效率工具"
 
 [menu]
-  [[menu.after]]
+  [[menu.main]]
+    name = "系列"
+    url = "/series/"
+    weight = 1
+  [[menu.main]]
+    name = "博客"
+    url = "/posts/"
+    weight = 2
+  [[menu.main]]
+    name = "更新日志"
+    url = "/changelog/"
+    weight = 3
+  [[menu.main]]
     name = "关于"
     url = "/about/"
-    weight = 10
+    weight = 4
 
 [markup]
   [markup.highlight]
     noClasses = false
     lineNos = true
+    lineNumbersInTable = false
     codeFences = true
   [markup.goldmark.renderer]
     unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+[taxonomies]
+  tag = "tags"
