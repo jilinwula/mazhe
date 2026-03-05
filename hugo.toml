@@ -1,34 +1,30 @@
 baseURL = "https://mazhe.pub/"
 languageCode = "zh-CN"
 title = "码者"
-theme = "blowfish"
+theme = "hugo-book"
 enableRobotsTXT = true
 buildDrafts = false
 
 [params]
-  colorScheme = "ocean"
-  defaultAppearance = "dark"
-  autoSwitchAppearance = true
-  description = "开发者的效率工具"
-
-  [params.author]
-    name = "码者团队"
-
-  [params.homepage]
-    layout = "background"
-    showRecent = true
-    recentLimit = 5
+  BookTheme = "dark"
+  BookToC = true
+  BookSearch = true
+  BookMenuBundle = false
+  BookSection = "posts"
+  BookRepo = ""
+  BookDateFormat = "2006-01-02"
+  BookDescription = "开发者的效率工具"
 
 [menu]
-  [[menu.main]]
+  [[menu.after]]
     name = "博客"
     url = "/posts/"
     weight = 10
-  [[menu.main]]
+  [[menu.after]]
     name = "更新日志"
     url = "/changelog/"
     weight = 20
-  [[menu.main]]
+  [[menu.after]]
     name = "关于"
     url = "/about/"
     weight = 30
