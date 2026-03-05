@@ -1,0 +1,57 @@
+baseURL = "https://mazhe.pub/"
+languageCode = "zh-CN"
+title = "码者"
+theme = "PaperMod"
+paginate = 10
+enableRobotsTXT = true
+buildDrafts = false
+
+[params]
+  author = "码者团队"
+  description = "码者 - 开发者的效率工具"
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  dateFormat = "2006-01-02"
+
+  [params.homeInfoParams]
+    Title = "👋 你好，这里是码者"
+    Content = "我们专注于构建让开发者更高效的工具。在这里记录产品更新、开发心得和使用技巧。"
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/your-org"
+
+  [[params.socialIcons]]
+    name = "twitter"
+    url = "https://twitter.com/mazhe"
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "博客"
+    url = "/posts/"
+    weight = 10
+
+  [[menu.main]]
+    identifier = "changelog"
+    name = "更新日志"
+    url = "/changelog/"
+    weight = 20
+
+  [[menu.main]]
+    identifier = "about"
+    name = "关于"
+    url = "/about/"
+    weight = 30
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    lineNos = true
+    codeFences = true
+  [markup.goldmark.renderer]
+    unsafe = true
